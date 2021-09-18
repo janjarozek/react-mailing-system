@@ -1,25 +1,65 @@
-import logo from './logo.svg';
-import './App.css';
+import "./styles.css";
 
-function App() {
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+// import parse from "html-react-parser";
+
+import Header from "./components/Header";
+
+import Navigation from "./components/Navigation";
+import Home from "./pages/Home";
+import AddSubscriber from "./pages/AddSubscriber";
+import AddCampaign from "./pages/AddCampaign";
+import ListOfCampaigns from "./pages/ListOfCampaigns";
+
+const menu = [
+  {
+    "label": "home",
+    "adress": "/"
+  },
+  {
+    "label": "add subscriber",
+    "adress": "/add-subscriber"
+  },
+  {
+    "label": "add campaign",
+    "adress": "/add-campaign"
+  },
+  {
+    "label": "Campaigns",
+    "adress": "/list-of-campaigns"
+  }
+];
+
+export default function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Header />
+        <Navigation menu={menu} />
+
+        <Switch>
+          {/* {menu.map((item) => (
+            <Route path={menu.adress}>
+              {parse(`<${menu.componentName} />`)}
+            </Route>
+            // <Route path={menu.adress}>{parse(`<Home />`)}</Route>
+          ))} */}
+
+          <Route exact path="/add-subscriber">
+            <AddSubscriber />
+          </Route>
+          <Route exact path="/add-campaign">
+            <AddCampaign />
+          </Route>
+          <Route exact path="/list-of-campaigns">
+            <ListOfCampaigns />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }
-
-export default App;

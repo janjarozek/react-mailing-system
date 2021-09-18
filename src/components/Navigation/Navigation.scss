@@ -1,0 +1,18 @@
+.navigation {
+  a {
+    color: black;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  
+  a:hover {
+    color: hsl(200,50%,50%);
+    font-weight: bold;
+  }
+
+  li {
+    list-style-type: none;
+    display: inline-block;
+    padding: 10px;
+  }
+}
