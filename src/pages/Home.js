@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-require('dotenv').config();
+import 'dotenv';
 // import asyncApi from "../components/utils/asyncAPI";
 
 export default function Home() {
+  // require('dotenv').config();
   const [apiData, setApiData] = useState(null);
 
   const getData = async () => {

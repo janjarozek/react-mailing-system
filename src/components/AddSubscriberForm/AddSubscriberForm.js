@@ -28,19 +28,20 @@ export default function AddSubscriberForm() {
     const requestOptions = {
       method: "POST",
       headers: {
-        "Access-Control-Allow-Origin" : "",
-        "Access-Control-Allow-Headers" : "*",
-        "Access-Control-Allow-Credentials" : true,
-        "Access-Control-Allow-Methods" : "GET, POST, OPTIONS",
-        "Access-Control-Request-Headers" : "",
-        "Content-Type": "application/json",
+        // "Access-Control-Allow-Origin" : "*",
+        // "Access-Control-Allow-Headers" : "*",
+        // "Access-Control-Allow-Credentials" : true,
+        // "Access-Control-Allow-Methods" : "GET, POST, OPTIONS",
+        // "Access-Control-Request-Headers" : "",
+        // "credentials" : "include",
         // "api_key": "keyEgyPm893dRucZN",
-        "Authorization" : "Bearer keyEgyPm893dRucZN",
-        "Cookie" : "brw=brwa1ai1GkwA1E7Pk"
+        // "Cookie" : "brw=brwa1ai1GkwA1E7Pk"
         // "Access-Control-Allow-Origin": "*",
         // "Access-Control-Request-Headers": true,
         // api_key: `${process.env.API_KEY}`,
         // Cookie: "brw=brwa1ai1GkwA1E7Pk"
+        "Content-Type" : "application/json",
+        "Authorization" : "Bearer keyEgyPm893dRucZN"
       },
       body: raw,
       redirect: "follow"
