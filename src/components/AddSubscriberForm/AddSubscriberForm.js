@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 
 import getCurrentDate from "../utils/getCurrentDate";
-import sendData from "../utils/sendData";
+// import sendData from "../utils/sendData";
 import "./AddSubscriberForm.scss";
 
 export default function AddSubscriberForm() {
@@ -48,21 +48,17 @@ export default function AddSubscriberForm() {
     };
     // sendData(requestOptions);
     try {
+      // console.log(process.env.REACT_APP_API_KEY);
       const response = await fetch(
-        // `${process.env.API_URL}/${process.env.API_TABLE_SUBS}?api_key=${process.env.API_KEY}`,
-        // "https://api.airtable.com/v0/appRqmnpD3qTn18Cc/ListOfSubs?api_key=keyEgyPm893dRucZN",
-        "https://api.airtable.com/v0/appRqmnpD3qTn18Cc/ListOfSubs",
+        `${process.env.REACT_APP_API_URL}/${process.env.REACT_APP_API_TABLE_SUBS}`,
         requestOptions
       );
       console.log(response.ok);
-      if (response.ok) {
-        console.log("API data send");
-        const result = await response.text();
-        // setApiData(data.records);
-        console.log(result);
-      } else {
-        console.log("Server status: ", response.status);
-      }
+      if (!response.ok) console.log("Server status: ", response.status);
+
+      // console.log("API data send");
+      const result = await response.text();
+
     } catch (err) {
       console.error(err);
     }

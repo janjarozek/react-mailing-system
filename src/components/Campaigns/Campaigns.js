@@ -1,19 +1,58 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import asyncAPI from "../utils/asyncAPI";
+import ListOfCampaigns from "./ListOfCampaigns";
+import CampaignDetails from "./CampaignDetails";
+
+import './Campaigns.scss'
 
 export default function Campaigns() {
   const [campaigns, setCampaigns] = useState(null);
+  const [currentCampaign, setCurrentCampaign] = useState(null);
+  const [showDetails, setShowDetails] = useState(false);
 
-  try {
-    asyncAPI
-      // .get(`${process.env.API_TABLE_CAMP}?api_key=${process.env.API_KEY}`)
-      .get(
-        "https://api.airtable.com/v0/appRqmnpD3qTn18Cc/Campaigns?api_key=keyEgyPm893dRucZN"
-      )
-      .then((data) => setCampaigns(data));
-  } catch (err) {
-    console.log(err);
+  const handleCampaignItemClick = (e) => {
+    campaigns.forEach(element => {
+      if (element.id === e.target.id) return setCurrentCampaign(element);
+    });
+    // setCurrentCampaign(campaigns[e.target.id])
+    setShowDetails(true);
   }
-  return <div>aslkaslk</div>;
+  const handleGoBackClick = (e) => {
+    setShowDetails(false);
+  }
+  const getData = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/${process.env.REACT_APP_API_TABLE_CAMP}?api_key=${process.env.REACT_APP_API_KEY}`
+      );
+      if (!response.ok) console.log("Server status: ", response.status);
+
+      console.log("API data campaigns received");
+      const data = await response.json();
+      setCampaigns(data.records);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    getData();
+  }, [])
+
+  return (
+    <div>
+      {!campaigns && <p>Loading data ...</p>}
+      {(campaigns && !showDetails) && <ListOfCampaigns>
+        {campaigns.map( (campaign) => (
+          <li key={`${campaign.id}`} className="campaign-frame">
+            <h6 className="campaign__small-date">{campaign.fields.CreatedDate}</h6>
+            <h4 className="campaign__subject">{campaign.fields.Subject}</h4>
+            <p className="campaign__content">{campaign.fields.Content}</p>
+            <button id={`${campaign.id}`} className="campaign__small-button" onClick={handleCampaignItemClick}>EDIT</button>
+          </li>
+        ))}
+      </ListOfCampaigns>}
+      {showDetails && <CampaignDetails data={currentCampaign} handleGoBackClick={handleGoBackClick}/>}
+    </div>
+  )
 }
