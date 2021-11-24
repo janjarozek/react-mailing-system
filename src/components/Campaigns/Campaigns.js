@@ -17,8 +17,12 @@ export default function Campaigns() {
     // setCurrentCampaign(campaigns[e.target.id])
     setShowDetails(true);
   }
-  const handleGoBackClick = (e) => {
+  const handleGoBackClick = () => {
     setShowDetails(false);
+  }
+  const handleDeleteClick = () => {
+    console.log('del')
+    // setShowDetails(false);
   }
   const getData = async () => {
     try {
@@ -37,6 +41,7 @@ export default function Campaigns() {
 
   useEffect(() => {
     getData();
+  // }, [campaigns]) // this end in a loop of constant refreshment
   }, [])
 
   return (
@@ -52,7 +57,11 @@ export default function Campaigns() {
           </li>
         ))}
       </ListOfCampaigns>}
-      {showDetails && <CampaignDetails data={currentCampaign} handleGoBackClick={handleGoBackClick}/>}
+      {showDetails &&
+        <CampaignDetails
+          data={currentCampaign}
+          handleGoBackClick={handleGoBackClick}
+        />}
     </div>
   )
 }

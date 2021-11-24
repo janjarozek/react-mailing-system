@@ -16,7 +16,8 @@ function AddCampaignForm( props ) {
   } = useForm();
   const onSubmit = (data) => {
     saveData(data)
-    setTimeout(() => history.push("/list-of-campaigns"), 500);
+    history.push("/list-of-campaigns");
+    // setTimeout(() => history.push("/list-of-campaigns"), 500);
     // clearTimeout(setback);
   };
 
