@@ -30,3 +30,22 @@
     text-align: left;
   }
 }
+
+.form-select {
+  text-align: left;
+}
+
+.form-select select {
+  width: 200px;
+  padding: 3px;
+  margin-bottom: 5px;
+  // display: none; /*hide original SELECT element: */
+}
+
+.select-items div,.select-selected {
+  color: #ffffff;
+  padding: 8px 16px;
+  border: 1px solid transparent;
+  border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+  cursor: pointer;
+}

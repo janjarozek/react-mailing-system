@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { withRouter } from "react-router";
 
 import getCurrentDate from "../utils/getCurrentDate";
-// import sendData from "../utils/sendData";
 import "./AddSubscriberForm.scss";
 
 function AddSubscriberForm(props) {
@@ -43,13 +42,12 @@ function AddSubscriberForm(props) {
         // api_key: `${process.env.API_KEY}`,
         // Cookie: "brw=brwa1ai1GkwA1E7Pk"
         "Content-Type" : "application/json",
-        "Authorization" : "Bearer keyEgyPm893dRucZN"
+        "Authorization" : `Bearer ${process.env.REACT_APP_API_KEY}`
       },
       body: raw,
       redirect: "follow"
     };
     try {
-      // console.log(process.env.REACT_APP_API_KEY);
       const response = await fetch(
         `${process.env.REACT_APP_API_URL}/${process.env.REACT_APP_API_TABLE_SUBS}`,
         requestOptions
@@ -57,7 +55,6 @@ function AddSubscriberForm(props) {
       console.log(response.ok);
       if (!response.ok) console.log("Server status: ", response.status);
 
-      // console.log("API data send");
       const result = await response.text();
 
     } catch (err) {
