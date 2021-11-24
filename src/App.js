@@ -1,9 +1,6 @@
 import "./styles.css";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-
-// import parse from "html-react-parser";
-
 import Header from "./components/Header";
 
 import Navigation from "./components/Navigation";
@@ -39,13 +36,6 @@ export default function App() {
         <Navigation menu={menu} />
 
         <Switch>
-          {/* {menu.map((item) => (
-            <Route path={menu.adress}>
-              {parse(`<${menu.componentName} />`)}
-            </Route>
-            // <Route path={menu.adress}>{parse(`<Home />`)}</Route>
-          ))} */}
-
           <Route exact path="/add-subscriber">
             <AddSubscriber />
           </Route>

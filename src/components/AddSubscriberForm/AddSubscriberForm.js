@@ -1,11 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { withRouter } from "react-router";
 
 import getCurrentDate from "../utils/getCurrentDate";
 // import sendData from "../utils/sendData";
 import "./AddSubscriberForm.scss";
 
-export default function AddSubscriberForm() {
+function AddSubscriberForm(props) {
+  const { history } = props;
   const {
     register,
     handleSubmit,
@@ -46,7 +48,6 @@ export default function AddSubscriberForm() {
       body: raw,
       redirect: "follow"
     };
-    // sendData(requestOptions);
     try {
       // console.log(process.env.REACT_APP_API_KEY);
       const response = await fetch(
@@ -66,6 +67,7 @@ export default function AddSubscriberForm() {
 
   const onSubmit = (data) => {
     saveData(data);
+    history.push("/home");
   };
 
   return (
@@ -87,3 +89,4 @@ export default function AddSubscriberForm() {
     </form>
   );
 }
+export default withRouter(AddSubscriberForm);
