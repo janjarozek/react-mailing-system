@@ -11,7 +11,7 @@ function CampaignDetails({ data, handleGoBackClick, history }) {
 
     const handleUpdateCampaign = () => {
         console.log(data);
-        updateData(data);
+        // updateData(data);
         // handleGoBackClick();
     }
 
@@ -76,8 +76,24 @@ function CampaignDetails({ data, handleGoBackClick, history }) {
         <div className="campaign-frame">
             <h6 className="campaign__small-date">Campaign created: {data.fields.CreatedDate}</h6>
             {/* <h4 className="campaign__subject">{data.fields.Subject}</h4> */}
-            <input type="text" value={data.fields.Subject} className="campaign__subject" />
-            <input type="textarea" value={data.fields.Content} className="campaign__content" />
+            <input
+                type="text"
+                value={data.fields.Subject}
+                className="campaign__subject"
+            />
+            <input
+                type="textarea"
+                value={data.fields.Content}
+                className="campaign__content"
+            />
+            {/* <div className="form-select">
+                <label>Status: </label>
+                <select>
+                {CAMPAIGN_STATUS.map( status => (
+                    <option className="select-items" value={status}>{status}</option>
+                ))}
+                </select>
+            </div> */}
             <button className="campaign__small-button" onClick={handleGoBackClick}>GO BACK</button>
             <button className="campaign__small-button" onClick={handleUpdateCampaign}>SAVE</button>
             <button className="campaign__small-button" onClick={handleDeleteCampaign}>DELETE</button>

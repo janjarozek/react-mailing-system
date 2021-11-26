@@ -14,15 +14,10 @@ export default function Campaigns() {
     campaigns.forEach(element => {
       if (element.id === e.target.id) return setCurrentCampaign(element);
     });
-    // setCurrentCampaign(campaigns[e.target.id])
     setShowDetails(true);
   }
   const handleGoBackClick = () => {
     setShowDetails(false);
-  }
-  const handleDeleteClick = () => {
-    console.log('del')
-    // setShowDetails(false);
   }
   const getData = async () => {
     try {
@@ -40,11 +35,7 @@ export default function Campaigns() {
   }
 
   useEffect(() => {
-    // const waitSecond = setTimeout(() =>
-    // { getData(); }, 1000);
     getData();
-    // return clearTimeout(waitSecond);
-  // }, [campaigns]) // this end in a loop of constant refreshment
   }, [showDetails])
 
   return (
@@ -52,7 +43,7 @@ export default function Campaigns() {
       {!campaigns && <p>Loading data ...</p>}
       {(campaigns && !showDetails) && <ListOfCampaigns>
         {campaigns.map( (campaign) => (
-          <li key={`${campaign.id}`} className="campaign-frame">
+          <li key={`${campaign.id}`} className={`campaign-frame status-${campaign.fields.Status}`}>
             <h6 className="campaign__small-date">{campaign.fields.CreatedDate}</h6>
             <h4 className="campaign__subject">{campaign.fields.Subject}</h4>
             <p className="campaign__content">{campaign.fields.Content}</p>
