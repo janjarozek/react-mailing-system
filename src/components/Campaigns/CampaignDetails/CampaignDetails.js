@@ -1,7 +1,10 @@
 import React from 'react'
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router'
+import { connect } from 'react-redux'
+import { getCampaigns } from '../redux.js'
 
-function CampaignDetails({ data, handleGoBackClick, history }) {
+function CampaignDetails( props ) {
+    const { data, handleGoBackClick, history } = props;
     const handleDeleteCampaign = () => {
         // console.log(data.id)
         deleteData(data.id);
@@ -50,6 +53,7 @@ function CampaignDetails({ data, handleGoBackClick, history }) {
             console.log(err);
         }
     }
+
     const deleteData = async (campaignId) => {
         let requestOptions = {
             method: "DELETE",
@@ -100,4 +104,18 @@ function CampaignDetails({ data, handleGoBackClick, history }) {
         </div>
     )
 }
-export default withRouter(CampaignDetails);
+
+function mapStateToProps(state) {
+    return{
+        storeCampaigns: state.campReducer.storeCampaigns,
+        isLoading: state.campReducer.isLoading,
+        isError: state.campReducer.isError
+    }
+  }
+  function mapDispatchToProps(dispatch) {
+    return{
+      getCampaigns: () => dispatch(getCampaigns())
+    }
+  }
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CampaignDetails));

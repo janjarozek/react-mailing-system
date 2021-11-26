@@ -9,6 +9,12 @@ import AddSubscriber from "./pages/AddSubscriber";
 import AddCampaign from "./pages/AddCampaign";
 import ListOfCampaigns from "./pages/ListOfCampaigns";
 
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+import { Provider } from 'react-redux'
+import rootReducer from './rootReducer'
+const store = createStore(rootReducer, applyMiddleware(thunk));
+
 const menu = [
   {
     "label": "home",
@@ -28,28 +34,32 @@ const menu = [
   }
 ];
 
+store.subscribe(()=> console.log(store.getState()));
+
 export default function App() {
   return (
     <div className="App">
-      <Router>
-        <Header />
-        <Navigation menu={menu} />
+      <Provider store={store}>
+        <Router>
+          <Header />
+          <Navigation menu={menu} />
 
-        <Switch>
-          <Route exact path="/add-subscriber">
-            <AddSubscriber />
-          </Route>
-          <Route exact path="/add-campaign">
-            <AddCampaign />
-          </Route>
-          <Route exact path="/list-of-campaigns">
-            <ListOfCampaigns />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </Router>
+          <Switch>
+            <Route exact path="/add-subscriber">
+              <AddSubscriber />
+            </Route>
+            <Route exact path="/add-campaign">
+              <AddCampaign />
+            </Route>
+            <Route exact path="/list-of-campaigns">
+              <ListOfCampaigns />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </Router>
+      </Provider>
     </div>
   );
 }

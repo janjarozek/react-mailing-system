@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
+import { connect } from 'react-redux'
+import { getCampaigns } from './redux'
 
 import ListOfCampaigns from "./ListOfCampaigns";
 import CampaignDetails from "./CampaignDetails";
 
 import './Campaigns.scss'
 
-export default function Campaigns() {
-  const [campaigns, setCampaigns] = useState(null);
+function Campaigns( props ) {
+  const { storeCampaigns, isLoading, isError, getCampaigns } = props;
+  // const [campaigns, setCampaigns] = useState(null);
   const [currentCampaign, setCurrentCampaign] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
 
   const handleCampaignItemClick = (e) => {
-    campaigns.forEach(element => {
+    storeCampaigns.forEach(element => {
       if (element.id === e.target.id) return setCurrentCampaign(element);
     });
     setShowDetails(true);
@@ -19,30 +22,16 @@ export default function Campaigns() {
   const handleGoBackClick = () => {
     setShowDetails(false);
   }
-  const getData = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/${process.env.REACT_APP_API_TABLE_CAMP}?api_key=${process.env.REACT_APP_API_KEY}`
-      );
-      if (!response.ok) console.log("Server status: ", response.status);
-
-      console.log("API data campaigns received");
-      const data = await response.json();
-      setCampaigns(data.records);
-    } catch (err) {
-      console.log(err);
-    }
-  }
 
   useEffect(() => {
-    getData();
+    getCampaigns();
   }, [showDetails])
 
   return (
     <div>
-      {!campaigns && <p>Loading data ...</p>}
-      {(campaigns && !showDetails) && <ListOfCampaigns>
-        {campaigns.map( (campaign) => (
+      {isLoading && <p>Loading data ...</p>}
+      {(storeCampaigns && !showDetails) && <ListOfCampaigns>
+        {storeCampaigns.map( (campaign) => (
           <li key={`${campaign.id}`} className={`campaign-frame status-${campaign.fields.Status}`}>
             <h6 className="campaign__small-date">{campaign.fields.CreatedDate}</h6>
             <h4 className="campaign__subject">{campaign.fields.Subject}</h4>
@@ -59,3 +48,18 @@ export default function Campaigns() {
     </div>
   )
 }
+
+function mapStateToProps(state) {
+  return{
+      storeCampaigns: state.campReducer.storeCampaigns,
+      isLoading: state.campReducer.isLoading,
+      isError: state.campReducer.isError
+  }
+}
+function mapDispatchToProps(dispatch) {
+  return{
+    getCampaigns: () => dispatch(getCampaigns())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Campaigns);
