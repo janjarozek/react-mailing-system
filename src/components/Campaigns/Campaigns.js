@@ -40,9 +40,12 @@ export default function Campaigns() {
   }
 
   useEffect(() => {
+    // const waitSecond = setTimeout(() =>
+    // { getData(); }, 1000);
     getData();
+    // return clearTimeout(waitSecond);
   // }, [campaigns]) // this end in a loop of constant refreshment
-  }, [])
+  }, [showDetails])
 
   return (
     <div>

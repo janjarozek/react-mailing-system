@@ -16,7 +16,7 @@ function AddCampaignForm( props ) {
   } = useForm();
   const onSubmit = (data) => {
     saveData(data)
-    history.push("/list-of-campaigns");
+    // history.push("/list-of-campaigns");
     // setTimeout(() => history.push("/list-of-campaigns"), 500);
     // clearTimeout(setback);
   };
@@ -53,6 +53,7 @@ function AddCampaignForm( props ) {
       if (!response.ok) console.log("Server status: ", response.status);
 
       const result = await response.text();
+      history.push("/list-of-campaigns");
 
     } catch (err) {
       console.error(err);
