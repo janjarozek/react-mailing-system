@@ -1,15 +1,13 @@
 import React from 'react'
-import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
-import { getCampaigns } from '../redux.js'
+import { deleteCampaign } from '../redux'
 
 function CampaignDetails( props ) {
-    const { data, handleGoBackClick, history } = props;
+    const { data, handleGoBackClick, delCampaign } = props;
+
     const handleDeleteCampaign = () => {
-        // console.log(data.id)
-        deleteData(data.id);
-        // history.push("/list-of-campaigns");
-        // handleGoBackClick();
+        delCampaign(data.id);
+        handleGoBackClick();
     }
 
     const handleUpdateCampaign = () => {
@@ -114,8 +112,8 @@ function mapStateToProps(state) {
   }
   function mapDispatchToProps(dispatch) {
     return{
-      getCampaigns: () => dispatch(getCampaigns())
+        delCampaign: (id) => dispatch(deleteCampaign(id))
     }
   }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CampaignDetails));
+export default connect(mapStateToProps, mapDispatchToProps)(CampaignDetails);

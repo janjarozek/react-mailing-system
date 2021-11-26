@@ -1,7 +1,8 @@
 // action creator definitions
-const CAMPAIGN_API_REQUESTED = 'campaign/USERS_API_REQUESTED';
-const CAMPAIGN_API_SUCCEED = 'campaign/USERS_API_SUCCEED';
-const CAMPAIGN_API_FAILED = 'campaign/USERS_API_FAILED';
+const CAMPAIGN_API_REQUESTED = 'campaign/CAMPAIGN_API_REQUESTED';
+const CAMPAIGN_API_SUCCEED = 'campaign/CAMPAIGN_API_SUCCEED';
+const CAMPAIGN_API_DELETE_SUCCEED = 'campaign/CAMPAIGN_API_DELETE_SUCCEED';
+const CAMPAIGN_API_FAILED = 'campaign/CAMPAIGN_API_FAILED';
 
 // state
 const INITIAL_STATE = {
@@ -12,6 +13,7 @@ const INITIAL_STATE = {
 // actions creators
 const campaignRequest = () => ({ type: CAMPAIGN_API_REQUESTED});
 const campaignSucceed = data => ({ type: CAMPAIGN_API_SUCCEED, payload: data});
+const campaignDeleteSucceed = () => ({ type: CAMPAIGN_API_DELETE_SUCCEED });
 const campaignFailed = () => ({ type: CAMPAIGN_API_FAILED});
 
 export const getCampaigns = () => {
@@ -27,13 +29,12 @@ export const getCampaigns = () => {
     }
 }
 
-export const deleteCampaign = async (campaignId) => {
+export const deleteCampaign = (campaignId) => {
     return async function(dispatch) {
         dispatch(campaignRequest());
         let requestOptions = {
             method: "DELETE",
             headers: {
-                // "Content-Type" : "application/json",
                 "Authorization" : `Bearer ${process.env.REACT_APP_API_KEY}`
             },
             redirect: "follow"
@@ -42,9 +43,8 @@ export const deleteCampaign = async (campaignId) => {
         , requestOptions);
         if (!response.ok) dispatch(campaignFailed());
         const data = await response.json();
-        // console.log("Campaign deleted", data);
         console.log("Campaign deleted", campaignId);
-        if (data) dispatch(campaignSucceed(data.records));
+        if (data) dispatch(campaignDeleteSucceed());
         // history.push("/list-of-campaigns");
     }
 }
@@ -64,6 +64,12 @@ export default function campaignReducer(state = INITIAL_STATE, action) {
                 ...state,
                 isLoading: false,
                 storeCampaigns: action.payload,
+                isError: false
+            };
+        case CAMPAIGN_API_DELETE_SUCCEED:
+            return {
+                ...state,
+                isLoading: false,
                 isError: false
             };
         case CAMPAIGN_API_FAILED:
