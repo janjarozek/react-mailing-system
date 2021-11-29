@@ -5,6 +5,20 @@
 }
 
 .campaign__content {
+    display: block;
+    margin: 5px;
+    text-align: left;
+    color: hsl(200, 50%, 30%);
+    font-size: 14px;
+}
+.campaign__content__input {
+    margin: 5px;
+    min-width: 500px;
+    min-height: 100px;
+}
+
+
+.campaign__status {
     margin: 5px;
     text-align: left;
     color: hsl(200, 50%, 30%);
@@ -35,6 +49,8 @@
     background-color: hsl(200, 50%, 50%);
     border: 1px solid hsl(200, 50%, 50%);
     color: hsl(200, 50%, 80%);
+    margin: 0px 5px;
+    margin-top: 5px;
     padding: 6px;
     border: 0;
     border-radius: 6px;
@@ -43,9 +59,9 @@
     font-weight: bold;
 }
 .campaign__small-button:hover {
-    background-color: hsl(200, 50%, 80%);
+    background-color: hsl(200, 50%, 70%);
     color: hsl(200, 50%, 50%);
-    border: 1px solid hsl(200, 50%, 50%);
+    // border: 1px solid hsl(200, 50%, 50%);
 }
 
 .campaign-frame {

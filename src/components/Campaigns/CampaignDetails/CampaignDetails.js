@@ -1,9 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { deleteCampaign } from '../redux'
+import { deleteCampaign, updateCampaign } from '../redux'
+
+const CAMPAIGN_STATUS = ["Draft", "Error", "Sent"]
 
 function CampaignDetails( props ) {
-    const { data, handleGoBackClick, delCampaign } = props;
+    const { data, handleGoBackClick, handleChangeSubject, handleChangeContent, handleChangeStatus, delCampaign, updateCampaign } = props;
 
     const handleDeleteCampaign = () => {
         delCampaign(data.id);
@@ -12,7 +14,7 @@ function CampaignDetails( props ) {
 
     const handleUpdateCampaign = () => {
         console.log(data);
-        // updateData(data);
+        // updateCampaign(data.fields, data.id);
         // handleGoBackClick();
     }
 
@@ -81,21 +83,23 @@ function CampaignDetails( props ) {
             <input
                 type="text"
                 value={data.fields.Subject}
+                onChange={handleChangeSubject}
                 className="campaign__subject"
-            />
+                />
             <input
                 type="textarea"
                 value={data.fields.Content}
-                className="campaign__content"
+                onChange={handleChangeContent}
+                className="campaign__content__input"
             />
-            {/* <div className="form-select">
-                <label>Status: </label>
-                <select>
+            <div className="campaign__status">
+                <select
+                    onChange={handleChangeStatus}>
                 {CAMPAIGN_STATUS.map( status => (
                     <option className="select-items" value={status}>{status}</option>
                 ))}
                 </select>
-            </div> */}
+            </div>
             <button className="campaign__small-button" onClick={handleGoBackClick}>GO BACK</button>
             <button className="campaign__small-button" onClick={handleUpdateCampaign}>SAVE</button>
             <button className="campaign__small-button" onClick={handleDeleteCampaign}>DELETE</button>
@@ -112,7 +116,8 @@ function mapStateToProps(state) {
   }
   function mapDispatchToProps(dispatch) {
     return{
-        delCampaign: (id) => dispatch(deleteCampaign(id))
+        delCampaign: (id) => dispatch(deleteCampaign(id)),
+        updateCampaign: (data, id) => dispatch(updateCampaign(data, id))
     }
   }
 

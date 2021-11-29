@@ -13,6 +13,44 @@ function Campaigns( props ) {
   const [currentCampaign, setCurrentCampaign] = useState(null);
   const [showDetails, setShowDetails] = useState(false);
 
+  const handleChangeSubject = e => {
+    // console.log(currentCampaign);
+    setCurrentCampaign({
+      "id": currentCampaign.id,
+      "fields": {
+          "Content": currentCampaign.Content,
+          "Subject": e.target.value,
+          "CreatedDate": currentCampaign.CreatedDate,
+          "Status": currentCampaign.Status,
+      },
+      "createdTime": currentCampaign.createdTime
+    })
+  }
+  const handleChangeStatus = e => {
+    setCurrentCampaign({
+      "id": currentCampaign.id,
+      "fields": {
+          "Content": currentCampaign.Content,
+          "Subject": currentCampaign.Subject,
+          "CreatedDate": currentCampaign.CreatedDate,
+          "Status": e.target.value,
+      },
+      "createdTime": currentCampaign.createdTime
+    })
+  }
+  const handleChangeContent = e => {
+    setCurrentCampaign({
+      "id": currentCampaign.id,
+      "fields": {
+          "Content": e.target.value,
+          "Subject": currentCampaign.Subject,
+          "CreatedDate": currentCampaign.CreatedDate,
+          "Status": currentCampaign.Status,
+      },
+      "createdTime": currentCampaign.createdTime
+    })
+  }
+
   const handleCampaignItemClick = (e) => {
     storeCampaigns.forEach(element => {
       if (element.id === e.target.id) return setCurrentCampaign(element);
@@ -43,6 +81,9 @@ function Campaigns( props ) {
       {showDetails &&
         <CampaignDetails
           data={currentCampaign}
+          handleChangeSubject={handleChangeSubject}
+          handleChangeContent={handleChangeContent}
+          handleChangeStatus={handleChangeStatus}
           handleGoBackClick={handleGoBackClick}
         />}
     </div>
