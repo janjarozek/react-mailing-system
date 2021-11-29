@@ -14,40 +14,37 @@ function Campaigns( props ) {
   const [showDetails, setShowDetails] = useState(false);
 
   const handleChangeSubject = e => {
-    // console.log(currentCampaign);
+    const newSubject = { ...currentCampaign }
+    newSubject.fields.Subject = e.target.value
     setCurrentCampaign({
-      "id": currentCampaign.id,
-      "fields": {
-          "Content": currentCampaign.Content,
-          "Subject": e.target.value,
-          "CreatedDate": currentCampaign.CreatedDate,
-          "Status": currentCampaign.Status,
-      },
-      "createdTime": currentCampaign.createdTime
+      ...currentCampaign,
+      ...newSubject
     })
   }
   const handleChangeStatus = e => {
+    const newStatus = { ...currentCampaign }
+    newStatus.fields.Status = e.target.value
     setCurrentCampaign({
-      "id": currentCampaign.id,
-      "fields": {
-          "Content": currentCampaign.Content,
-          "Subject": currentCampaign.Subject,
-          "CreatedDate": currentCampaign.CreatedDate,
-          "Status": e.target.value,
-      },
-      "createdTime": currentCampaign.createdTime
+      ...currentCampaign,
+      ...newStatus
     })
+    // setCurrentCampaign({
+    //   "id": currentCampaign.id,
+    //   "fields": {
+    //       "Content": currentCampaign.Content,
+    //       "Subject": currentCampaign.Subject,
+    //       "CreatedDate": currentCampaign.CreatedDate,
+    //       "Status": e.target.value,
+    //   },
+    //   "createdTime": currentCampaign.createdTime
+    // })
   }
   const handleChangeContent = e => {
+    const newContent = { ...currentCampaign }
+    newContent.fields.Content = e.target.value
     setCurrentCampaign({
-      "id": currentCampaign.id,
-      "fields": {
-          "Content": e.target.value,
-          "Subject": currentCampaign.Subject,
-          "CreatedDate": currentCampaign.CreatedDate,
-          "Status": currentCampaign.Status,
-      },
-      "createdTime": currentCampaign.createdTime
+      ...currentCampaign,
+      ...newContent
     })
   }
 

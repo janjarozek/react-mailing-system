@@ -13,9 +13,9 @@ function CampaignDetails( props ) {
     }
 
     const handleUpdateCampaign = () => {
-        console.log(data);
-        // updateCampaign(data.fields, data.id);
-        // handleGoBackClick();
+        // console.log(data);
+        updateCampaign(data.fields, data.id);
+        handleGoBackClick();
     }
 
     const updateData = async (formData) => {
@@ -95,9 +95,9 @@ function CampaignDetails( props ) {
             <div className="campaign__status">
                 <select
                     onChange={handleChangeStatus}>
-                {CAMPAIGN_STATUS.map( status => (
-                    <option className="select-items" value={status}>{status}</option>
-                ))}
+                    {CAMPAIGN_STATUS.map( status => (
+                        <option className="select-items" value={status} selected={(status === data.fields.Status)?true:false}>{status}</option>
+                    ))}
                 </select>
             </div>
             <button className="campaign__small-button" onClick={handleGoBackClick}>GO BACK</button>

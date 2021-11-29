@@ -5,8 +5,6 @@ const CAMPAIGN_API_DELETE_SUCCEED = 'campaign/CAMPAIGN_API_DELETE_SUCCEED'
 const CAMPAIGN_API_UPDATE_SUCCEED = 'campaign/CAMPAIGN_API_UPDATE_SUCCEED'
 const CAMPAIGN_API_FAILED = 'campaign/CAMPAIGN_API_FAILED'
 
-// const UPDATE_CAMPAIGN_DATA = 'campaign/UPDATE_CAMPAIGN_DATA'
-
 // state
 const INITIAL_STATE = {
     storeCampaigns: null,
@@ -20,7 +18,6 @@ const campaignSucceed = data => ({ type: CAMPAIGN_API_SUCCEED, payload: data})
 const campaignDeleteSucceed = () => ({ type: CAMPAIGN_API_DELETE_SUCCEED })
 const campaignUpdateSucceed = () => ({ type: CAMPAIGN_API_UPDATE_SUCCEED })
 const campaignFailed = () => ({ type: CAMPAIGN_API_FAILED})
-// const updateCampaignData = () => ({ type: UPDATE_CAMPAIGN_DATA })
 
 export const getCampaigns = () => {
     return async function(dispatch){
@@ -58,16 +55,12 @@ export const updateCampaign = (campaignData, campaignId) => {
     return async function(dispatch) {
         dispatch(campaignRequest());
         var raw = JSON.stringify({
-        records: [
-            {
             fields: {
-                    Subject: campaignData.Subject,
-                    Status: campaignData.Status,
-                    Content: campaignData.Content,
-                    CreatedDate: campaignData.CreatedDate,
-                }
+                Subject: campaignData.Subject,
+                Status: campaignData.Status,
+                Content: campaignData.Content,
+                CreatedDate: campaignData.CreatedDate,
             }
-        ]
         });
 
         const requestOptions = {
@@ -85,41 +78,16 @@ export const updateCampaign = (campaignData, campaignId) => {
         );
         console.log(response.ok);
         if (!response.ok) dispatch(campaignFailed());
-        // console.log("Server status: ", response.status);
 
-        const done = await response.json();
-        if (data) dispatch(campaignUpdateSucceed());
-        // history.push("/list-of-campaigns");
+        const done = await response.text();
+        if (done) dispatch(campaignUpdateSucceed());
     }
 };
-
-// export const updateCampaign = (campaignId) => {
-//     return async function(dispatch) {
-//         dispatch(campaignRequest());
-//         let requestOptions = {
-//             method: "PUSH",
-//             headers: {
-//                 "Authorization" : `Bearer ${process.env.REACT_APP_API_KEY}`
-//             },
-//             redirect: "follow"
-//         };
-//         const response = await fetch(`${process.env.REACT_APP_API_URL}/${process.env.REACT_APP_API_TABLE_CAMP}/${campaignId}`
-//         , requestOptions);
-//         if (!response.ok) dispatch(campaignFailed());
-//         const data = await response.json();
-//         console.log("Campaign deleted", campaignId);
-//         if (data) dispatch(campaignDeleteSucceed());
-//     }
-// }
 
 // reducer
 export default function campaignReducer(state = INITIAL_STATE, action) {
 
     switch (action.type) {
-        // case UPDATE_CAMPAIGN_DATA:
-        //     return {
-        //         ...state
-        //     };
         case CAMPAIGN_API_REQUESTED:
             return {
                 ...state,
