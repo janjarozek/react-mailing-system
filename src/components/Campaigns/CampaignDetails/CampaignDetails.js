@@ -18,6 +18,10 @@ function CampaignDetails( props ) {
         handleGoBackClick();
     }
 
+    const handleSendCampaign = () => {
+        console.log(data);
+    }
+
     const updateData = async (formData) => {
         var raw = JSON.stringify({
             records: [
@@ -102,6 +106,7 @@ function CampaignDetails( props ) {
             </div>
             <button className="campaign__small-button" onClick={handleGoBackClick}>GO BACK</button>
             <button className="campaign__small-button" onClick={handleUpdateCampaign}>SAVE</button>
+            <button className="campaign__small-button" onClick={handleSendCampaign}>SEND</button>
             <button className="campaign__small-button" onClick={handleDeleteCampaign}>DELETE</button>
         </div>
     )
